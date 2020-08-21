@@ -42,10 +42,10 @@ class Fun(Cog):
         if isinstance(exc.original, HTTPException):
             await ctx.send("Kyaaaaaa...... Banyak banget dadu nya. Aku tidak bisa menghitung dadu sebanyak itu")
 
-    @command(name="slap", aliases=["hit","tampol","tampar","gaplok"])
+    @command(name="slap", aliases=["hit","tampol","tampar","gaplok", "tendang"])
     async def slap_member(self, ctx, member: Member, *, reason: Optional[str] = "pengen aja"):
         reason = reason.capitalize()
-        reaction = ["memukul","menampar","menampol","menggaplok"]
+        reaction = ["memukul","menampar","menampol","menggaplok", "menendang"]
         await ctx.message.delete()
         await ctx.send(f"""Klee {random.choice(reaction)} {member.mention}
 Alasan : {reason}""") # untuk {ctx.author.name}!

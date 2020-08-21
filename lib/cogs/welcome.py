@@ -46,7 +46,7 @@ class Welcome(Cog):
 ＼(≧▽≦)／""", description=("Jangan lupa baca <#" + str(rules) +f"""> terlebih dahulu,.
 Semoga betah ya~~"""), color=discord.Colour.from_rgb(r=randint(0, 255), g=randint(0, 255), b=randint(0, 255)), timestamp=datetime.utcnow())
         embed.set_author(name="Genshin Impact Indonesia")
-        embed.set_footer(text="Klee v0.8 • embed by rayhan354")
+        embed.set_footer(text="Klee v0.8.1 • embed by rayhan354")
         embed.set_thumbnail(url= "https://cdn.glitch.com/9b304f27-f8a2-418f-9a53-7e1f301959f2%2FWelcome.png?v=1598041284654")
         await self.bot.get_channel(welcomePage).send(embed=embed)
 
