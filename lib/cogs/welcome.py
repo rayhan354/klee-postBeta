@@ -42,7 +42,7 @@ class Welcome(Cog):
     @Cog.listener()
     async def on_member_join(self, member):
         db.execute("INSERT INTO exp (UserID) VALUES (?)", member.id)
-        embed = Embed(title=f"""Selamat datang di Genshin Impact Indonesia, {member.display_name}
+        embed = Embed(title=f"""Selamat datang, {member.display_name}
 ＼(≧▽≦)／""", description=("Jangan lupa baca <#" + str(rules) +f"""> terlebih dahulu,.
 Semoga betah ya~~"""), color=discord.Colour.from_rgb(r=randint(0, 255), g=randint(0, 255), b=randint(0, 255)), timestamp=datetime.utcnow())
         embed.set_author(name="Genshin Impact Indonesia")
