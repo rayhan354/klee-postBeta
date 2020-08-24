@@ -25,7 +25,7 @@ OWNER_IDS = [326730266531856394]
 COGS = [path.split(os.sep)[-1][:-3] for path in glob("./lib/cogs/*.py")] #going to the cogs directory, and returns the name of any cog inside em
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
-dev_area = 717755695054979124
+dev_area = 691557707269931088
 Server = 691557706846306385
 peraturanumum = 691558363393294338
 
