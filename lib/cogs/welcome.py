@@ -53,7 +53,7 @@ Semoga betah ya~~"""), color=discord.Colour.from_rgb(r=randint(0, 255), g=randin
     @Cog.listener()
     async def on_member_remove(self, member):
         db.execute("DELETE FROM exp WHERE UserID = ?", member.id)
-        await self.bot.get_channel(welcomePage).send(f"Yah... {member.display_name} telah keluar dari {member.guild.name}. Selamat tinggal, Traveler")
+        await self.bot.get_channel(welcomePage).send(f"Yah... {member.display_name} telah keluar. Selamat tinggal, Traveler")
 
 
 def setup(bot):
