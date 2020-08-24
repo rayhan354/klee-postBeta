@@ -81,7 +81,7 @@ class Bot(BotBase):
     
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
-            await args[0].send("itu apaan?")
+            await args[0].send("Ahh, aku tidak paham apa maksudmu...")
 
         await self.stdout.send("Error")
 
