@@ -23,7 +23,7 @@ from random import randint
 
 from ..db import db
 
-welcomePage = 745482491862974558
+welcomePage = 750146707895091211
 rules = 691558363393294338
 Klee = discord.File("pics/klee.png", filename="klee.png")
 PaimonCute = discord.File("pics/paimon.png", filename="paimon.png")
