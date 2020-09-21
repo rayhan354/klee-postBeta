@@ -121,13 +121,14 @@ class Bot(BotBase):
         if not self.ready:
             self.guild = self.get_guild(Server)
             self.stdout = self.get_channel(dev_area) #genshin_chat
-            self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0)) # 
+            self.scheduler.add_job(self.rules_reminder, CronTrigger(day_of_week=0, hour=0, minute=0, second=0)) # 
             self.scheduler.start()
 
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
             
             await self.stdout.send("Halo semua, Klee siap melayani kalian")
+            await self.change_presence(activity=discord.Game(name="treasure hunt 💣"))
             self.ready = True
             print("bot ready")
         else:

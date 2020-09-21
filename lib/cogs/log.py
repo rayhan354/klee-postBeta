@@ -21,8 +21,13 @@ from discord import Embed
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 
-devArea = 743105610526097479
+roleUpdate = 743105610526097479
 botInteract = 743100499393380426
+messageUpdate = 757500965749260298
+avatarUpdate = 757501447901413396
+userUpdate = 757501461830565898
+
+rayhan352 = 606013036385271818
 
 class Log(Cog):
 	def __init__(self, bot):
@@ -31,7 +36,10 @@ class Log(Cog):
 	@Cog.listener()
 	async def on_ready(self):
 		if not self.bot.ready:
-			self.log_channel = self.bot.get_channel(devArea)
+			self.role_update = self.bot.get_channel(roleUpdate)
+			self.message_update = self.bot.get_channel(messageUpdate)
+			self.avatar_update = self.bot.get_channel(avatarUpdate)
+			self.user_update = self.bot.get_channel(userUpdate)
 			self.bot.cogs_ready.ready_up("log")
 
 	@Cog.listener()
@@ -47,10 +55,11 @@ class Log(Cog):
 			for name, value, inline in fields:
 				embed.add_field(name=name, value=value, inline=inline)
 
-			await self.log_channel.send(embed=embed)
+			await self.user_update.send(embed=embed)
 
 		if before.discriminator != after.discriminator:
-			embed = Embed(title="Discriminator change",
+			embed = Embed(title="Discord tag change",
+						  description= f"{before.display_name}",
 						  colour=after.colour,
 						  timestamp=datetime.utcnow())
 
@@ -60,18 +69,18 @@ class Log(Cog):
 			for name, value, inline in fields:
 				embed.add_field(name=name, value=value, inline=inline)
 
-			await self.log_channel.send(embed=embed)
+			await self.user_update.send(embed=embed)
 
 		if before.avatar_url != after.avatar_url:
 			embed = Embed(title=f"Avatar change ( {before.display_name} )",
 						  description="New image is below, old is on right.",
-						  colour=self.log_channel.guild.get_member(after.id).colour,
+						  colour=self.avatar_update.guild.get_member(after.id).colour,
 						  timestamp=datetime.utcnow())
 
 			embed.set_thumbnail(url=before.avatar_url)
 			embed.set_image(url=after.avatar_url)
 
-			await self.log_channel.send(embed=embed)
+			await self.avatar_update.send(embed=embed)
 
 	@Cog.listener()
 	async def on_member_update(self, before, after):
@@ -86,7 +95,7 @@ class Log(Cog):
 			for name, value, inline in fields:
 				embed.add_field(name=name, value=value, inline=inline)
 
-			await self.log_channel.send(embed=embed)
+			await self.user_update.send(embed=embed)
 
 		elif before.roles != after.roles:
 			embed = Embed(title="Role updates",
@@ -100,7 +109,7 @@ class Log(Cog):
 			for name, value, inline in fields:
 				embed.add_field(name=name, value=value, inline=inline)
 
-			await self.log_channel.send(embed=embed)
+			await self.role_update.send(embed=embed)
 
 	@Cog.listener()
 	async def on_message_edit(self, before, after):
@@ -117,23 +126,23 @@ class Log(Cog):
 				for name, value, inline in fields:
 					embed.add_field(name=name, value=value, inline=inline)
 
-				await self.log_channel.send(embed=embed)
+				await self.message_update.send(embed=embed)
 
 	@Cog.listener()
 	async def on_message_delete(self, message):
 		if not message.author.bot:
-			embed = Embed(title="Message delete",
+			if not message.attachments:
+				embed = Embed(title="Message delete",
 						  description=f"{message.author.display_name}.",
 						  colour=message.author.colour,
 						  timestamp=datetime.utcnow())
 
-			fields = [("Content", message.content, False)]
+				fields = [("Content", message.content, False)]
 
-			for name, value, inline in fields:
-				embed.add_field(name=name, value=value, inline=inline)
+				for name, value, inline in fields:
+					embed.add_field(name=name, value=value, inline=inline)
 
-			await self.log_channel.send(embed=embed)
-
+				await self.message_update.send(embed=embed)
 
 def setup(bot):
 	bot.add_cog(Log(bot))
