@@ -48,7 +48,7 @@ class Mod(Cog):
         if not message.author.bot:
             if profanity.contains_profanity(message.content):
                 await message.delete()
-                await message.channel.send(f"Traveler `{message.author.mention}`, kau tidak boleh berkata seperti itu!!!")
+                await message.channel.send(f"Traveler {message.author.mention}, kau tidak boleh berkata seperti itu!!!")
                 await self.bot.get_channel(kataKasar).send(f"""{message.author.mention} menggunakan kata terlarang dalam chatnya:
 ```
 {str(message.content)}

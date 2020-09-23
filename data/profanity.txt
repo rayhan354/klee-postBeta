@@ -30,3 +30,4 @@ jnck
 kontlo
 buset
 anjir
+anjay
