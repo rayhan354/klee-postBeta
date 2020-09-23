@@ -22,9 +22,9 @@ class Fun(Cog):
         await ctx.send(f"{choice(('Hai','Haloooo', 'Yo', 'Yaahooo~~~'))} {ctx.author.mention}!")
         await ctx.message.delete()
 
-    @command(name="dice", aliases=["roll"]) # roll dice ( contoh : klee roll 3 berarti kyk ngeroll 3 dadu )
-    async def roll_dice(self, ctx, die_string: str):
-        dice = (int(die_string))
+    @command(name="roll", aliases=["dadu"]) # roll dice ( contoh : klee roll 3 berarti kyk ngeroll 3 dadu )
+    async def roll_dice(self, ctx, jumlah_dadu: str):
+        dice = (int(jumlah_dadu))
         rolls = [randint(1, 6) for i in range(dice)]
         if rolls == []:
             await ctx.send(f"Garing lu!!!")
@@ -42,13 +42,17 @@ class Fun(Cog):
         if isinstance(exc.original, HTTPException):
             await ctx.send("Kyaaaaaa...... Banyak banget dadu nya. Aku tidak bisa menghitung dadu sebanyak itu")
 
-    @command(name="slap", aliases=["hit","tampol","tampar","gaplok", "tendang"])
-    async def slap_member(self, ctx, member: Member, *, reason: Optional[str] = "pengen aja"):
-        reason = reason.capitalize()
+    @command(name="slap", aliases=["hit","tampol","tampar","gaplok", "punch"])
+    async def slap_member(self, ctx, member: Member, *, alasan: Optional[str] = "Gaada alasan"):
+        alasan = alasan.capitalize()
         reaction = ["memukul","menampar","menampol","menggaplok", "menendang"]
         await ctx.message.delete()
         await ctx.send(f"""Klee {random.choice(reaction)} {member.mention}
-Alasan : {reason}""") # untuk {ctx.author.name}!
+Alasan : {alasan}""") # untuk {ctx.author.name}!
+
+    @command(name="indihome", aliases=["restart","modem","modemnya"])
+    async def restart_modem(self, ctx):
+        await ctx.send(f"Haaa??? Perintah macam apa itu!?!? Ku beritahu kau satu hal ya, {ctx.author.name}. Aku tidak akan menggunakan ||Indihome||! kualitas jaringannya buruk sekali tahu!!!")
 
     @slap_member.error
     async def slap_member_error(self, ctx, exc):
@@ -59,9 +63,9 @@ Alasan : {reason}""") # untuk {ctx.author.name}!
 
     @command(name ="echo", aliases=["say","chat"])
     async def echo_message(self, ctx, *, message):
-        message = message.capitalize()
+        pesan = message.capitalize()
         await ctx.message.delete()
-        await ctx.send(message)
+        await ctx.send(pesan)
     
     
     @Cog.listener()
