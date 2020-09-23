@@ -1,4 +1,4 @@
 discord.py==1.4.1
 apscheduler==3.6.3
-discord.ext.menus
-better_profanity
+discord-ext-menus==1.0.0a26+g84caae8
+better_profanity==0.6.1
