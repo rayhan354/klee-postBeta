@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 from re import search
 from typing import Optional
 
+import time
+
 from discord import Embed, Member
 from discord.ext.commands import Cog, Greedy
 from discord.ext.commands import CheckFailure
@@ -25,31 +27,40 @@ class Mod(Cog):
     @command(name="larang", aliases=["kasar", "bahaya"])
     @has_permissions(manage_guild=True)
     async def add_profanity(self, ctx, *words):
-        with open("./data/profanity.txt", "a", encoding="utf-8") as f:
-            f.write("".join([f"{w}\n" for w in words]))
+        if words == "('',)":
+            pass
+        else:
+            with open("./data/profanity.txt", "a", encoding="utf-8") as f:
+                f.write("".join([f"{w}\n" for w in words]))
 
-        profanity.load_censor_words_from_file("./data/profanity.txt")
-        await ctx.send(str(*words)+" adalah kata terlarang")
+            profanity.load_censor_words_from_file("./data/profanity.txt")
+            await ctx.send(str(*words)+" adalah kata terlarang")
 
     @command(name="delarang", aliases=["delkasar", "delbahaya"])
     @has_permissions(manage_guild=True)
     async def remove_profanity(self, ctx, *words):
-        with open("./data/profanity.txt", "r", encoding="utf-8") as f:
-            stored = [w.strip() for w in f.readlines()]
+        if words == "('',)":
+            pass
+        else:
+            with open("./data/profanity.txt", "r", encoding="utf-8") as f:
+                stored = [w.strip() for w in f.readlines()]
 
-        with open("./data/profanity.txt", "w", encoding="utf-8") as f:
-            f.write("".join([f"{w}\n" for w in stored if w not in words]))
+            with open("./data/profanity.txt", "w", encoding="utf-8") as f:
+                f.write("".join([f"{w}\n" for w in stored if w not in words]))
 
-        profanity.load_censor_words_from_file("./data/profanity.txt")
-        await ctx.send(str(*words)+" bukan lagi kata terlarang")
+            profanity.load_censor_words_from_file("./data/profanity.txt")
+            await ctx.send(str(*words)+" bukan lagi kata terlarang")
 
     @Cog.listener()
     async def on_message(self, message):
         if not message.author.bot:
             if profanity.contains_profanity(message.content):
-                await message.delete()
-                await message.channel.send(f"Traveler {message.author.mention}, kau tidak boleh berkata seperti itu!!!")
-                await self.bot.get_channel(kataKasar).send(f"""{message.author.mention} menggunakan kata terlarang dalam chatnya:
+                if message.content.startswith("klee larang"):
+                    pass
+                else:
+                    await message.delete()
+                    await message.channel.send(f"Traveler {message.author.mention}, kau tidak boleh berkata seperti itu!!!", delete_after = 10)
+                    await self.bot.get_channel(kataKasar).send(f"""{message.author.mention} menggunakan kata terlarang dalam chatnya:
 ```
 {str(message.content)}
 ```""")
