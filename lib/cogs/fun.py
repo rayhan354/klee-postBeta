@@ -8,7 +8,7 @@ from aiohttp import request
 from discord.errors import HTTPException
 from discord.ext.commands import Cog, BucketType
 from discord.ext.commands import command, cooldown
-from discord.ext.commands import BadArgument
+from discord.ext.commands import BadArgument, has_permissions
 class Fun(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -62,6 +62,7 @@ Alasan : {alasan}""") # untuk {ctx.author.name}!
 
 
     @command(name ="echo", aliases=["say","chat"])
+    @has_permissions(manage_guild=True)
     async def echo_message(self, ctx, *, message):
         pesan = message.capitalize()
         await ctx.message.delete()
