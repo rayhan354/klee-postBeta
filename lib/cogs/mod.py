@@ -5,9 +5,10 @@ from typing import Optional
 
 import time
 
-from discord import Embed, Member
-from discord.ext.commands import Cog, Greedy
-from discord.ext.commands import CheckFailure
+from discord import Embed, Member, NotFound, Object
+from discord.utils import find 
+from discord.ext.commands import Cog, Greedy, Converter
+from discord.ext.commands import CheckFailure, BadArgument
 from discord.ext.commands import command, has_permissions, bot_has_permissions
 
 from ..db import db
@@ -19,10 +20,89 @@ from better_profanity import profanity
 profanity.load_censor_words_from_file("./data/profanity.txt")
 
 kataKasar = 758415783176044605
+joinLog = 750146707895091211
+mutedRole = 763413977971032105
+unmutedRole = 691558060820529162
+general = 691557707269931088
+
 
 class Mod(Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @command(name="kick", aliases=["tendang"])
+    @bot_has_permissions(kick_members=True)
+    @has_permissions(manage_guild=True)
+    async def kick_members(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "(Tidak tertulis)"):
+        if not len(targets):
+            await ctx.send("Gunakan `klee <kick|ban> <mention member>` untuk melakukan perintah tersebut")
+
+        else:
+            for target in targets:
+                if not target.guild_permissions.administrator:
+                    await target.kick(reason=reason)
+
+                    embed = Embed(title=f"Traveler [ {target.display_name} ] **KICKED!!**",
+                                  colour=0xFFFF00,
+                                  timestamp=datetime.utcnow())
+
+                    embed.set_thumbnail(url="https://cdn.glitch.com/9b304f27-f8a2-418f-9a53-7e1f301959f2%2F286a7dbcc956891335fa1df61fc16b5e_3065080245373623875.png?v=1602251899571")
+
+                    fields = [("Member", f"{target.name}", False),
+                              ("Ditendang oleh", ctx.author.display_name , False),
+                              ("Sebab", reason , False)]
+                    for name, value, inline in fields:
+                        embed.add_field(name=name, value=value, inline=inline)
+
+                    await self.welcome_channel.send(embed=embed)
+                    await ctx.send(f"{target.display_name} berhasil di kick", delete_after = 30)
+                else:
+                    await ctx.send(f"Apa maksudmu melakukan itu? Klee tidak mau melakukannya!!!")
+
+    @command(name="ban", aliases=["buang"])
+    @bot_has_permissions(ban_members=True)
+    @has_permissions(manage_guild=True)
+    async def ban_members(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "(Tidak tertulis)"):
+        if not len(targets):
+            await ctx.send("Gunakan `klee <kick|ban> <mention member>` untuk melakukan perintah tersebut")
+
+        else:
+            for target in targets:
+                if not target.guild_permissions.administrator:
+                    await target.ban(reason=reason)
+
+                    embed = Embed(title=f"Traveler [ {target.display_name} ] **BANNED!!!**",
+                                  colour=0xFF0000,
+                                  timestamp=datetime.utcnow())
+
+                    embed.set_thumbnail(url="https://cdn.glitch.com/9b304f27-f8a2-418f-9a53-7e1f301959f2%2F286a7dbcc956891335fa1df61fc16b5e_3065080245373623875.png?v=1602251899571")
+
+                    fields = [("Member", f"{target.name}", False),
+                              ("Ditendang oleh", ctx.author.display_name , False),
+                              ("Sebab", reason , False)]
+                    for name, value, inline in fields:
+                        embed.add_field(name=name, value=value, inline=inline)
+
+                    await self.welcome_channel.send(embed=embed)
+                    await ctx.send(f"{target.display_name} berhasil di ban", delete_after = 30)
+                
+                else:
+                    await ctx.send(f"Apa maksudmu melakukan itu? Klee tidak mau melakukannya!!!")
+
+    @command(name="mute")
+    @bot_has_permissions(manage_roles=True)
+    @has_permissions(manage_guild=True)
+    async def mute_members(self, ctx, target: Member, *,
+                           reason: Optional[str] = "Tidak disebutkan"):
+        await target.edit(roles=[self.mute_role])
+        await ctx.send(f"Oke. Sementara {target.display_name} tidak boleh chat ya")
+
+    @command(name="unmute")
+    @bot_has_permissions(manage_roles=True)
+    @has_permissions(manage_guild=True)
+    async def unmute_members(self, ctx, target: Member, *, reason: Optional[str] = "Tidak ditulis"):
+        await target.edit(roles=[self.unmute_role])
+        await ctx.send(f"Ok {target.display_name} boleh chat kembali")
 
     @command(name="larang", aliases=["kasar", "bahaya"])
     @has_permissions(manage_guild=True)
@@ -68,6 +148,10 @@ class Mod(Cog):
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
+            self.welcome_channel = self.bot.get_channel(joinLog)
+            self.mute_role = self.bot.guild.get_role(mutedRole)
+            self.unmute_role = self.bot.guild.get_role(unmutedRole)
+            self.unmuted_yay = self.bot.get_channel(general)
             self.bot.cogs_ready.ready_up("mod")
 
 def setup(bot):

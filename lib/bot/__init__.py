@@ -81,7 +81,7 @@ class Bot(BotBase):
     
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
-            await args[0].send(f"Maaf, Klee tidak dapat menerima perintah itu. Kau boleh meminta para Archon untuk melakukan hal tersebut")
+            await args[0].send(f"Maaf, Klee tidak dapat menerima perintah itu. Kau bisa meminta para Archon untuk melakukan hal tersebut")
 
 
     async def on_command_error(self, ctx, exc):
