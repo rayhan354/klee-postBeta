@@ -1,5 +1,5 @@
 from lib.bot import bot
 
-VERSION = "0.9.6" # Next is making EXP System
+VERSION = "1.0.0"
 
 bot.run(VERSION)

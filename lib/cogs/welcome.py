@@ -44,9 +44,9 @@ class Welcome(Cog):
 
     @Cog.listener()
     async def on_member_join(self, member):
-        if member.id == rayhan352:
-            pass
-        else:
+        # if member.id == rayhan352:
+        #     pass
+        # else:
             db.execute("INSERT INTO exp (UserID) VALUES (?)", member.id)
             embed = Embed(title=f"""Selamat datang, {member.display_name}
 ＼(≧▽≦)／""", description=("Jangan lupa baca <#" + str(rules) +f"""> terlebih dahulu.
