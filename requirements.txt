@@ -1,4 +1,4 @@
 discord.py==1.4.1
 apscheduler==3.6.3
 git+https://github.com/Rapptz/discord-ext-menus
-better_profanity==0.6.1
+profanity==1.1
