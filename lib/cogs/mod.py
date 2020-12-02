@@ -133,6 +133,11 @@ class Mod(Cog):
 
     @Cog.listener()
     async def on_message(self, message):
+        def _check(m):
+            return (m.author == message.author
+                    and len(m.author)
+                    and (datetime.utcnow()-m.created_at).seconds < 60)
+
         if not message.author.bot:
             if profanity.contains_profanity(message.content):
                 if message.content.startswith("klee larang"):
@@ -144,6 +149,25 @@ class Mod(Cog):
 ```
 {str(message.content)}
 ```""")
+            elif len(list(filter(lambda m: _check(m), self.bot.cached_messages))) >= 3:
+                await message.channel.send("Don't spam mentions!", delete_after=10)
+
+    @command(name="clear", aliases=["hapus"])
+    @has_permissions(manage_messages=True)
+    async def clear_messages(self, ctx, targets: Greedy[Member], limit: Optional[int] = 100):
+        def _check(message):
+            return not len(targets) or message.author in targets
+
+        if 0 < limit <= 100:
+            with ctx.channel.typing():
+                await ctx.message.delete()
+                deleted = await ctx.channel.purge(limit=limit,
+                                                  check=_check)
+
+                await ctx.send(f"{len(deleted):,} pesan telah terhapus.", delete_after=5)
+
+        else:
+            await ctx.send("Klee tidak mau menghapus pesan terlalu banyak.")
 
     @Cog.listener()
     async def on_ready(self):

@@ -70,7 +70,7 @@ class Bot(BotBase):
         super().run(self.TOKEN, reconnect = True)
     
     async def rules_reminder(self):
-        channel = self.get_channel(dev_area)
+        channel = self.get_channel(Server)
         await channel.send("Jangan lupa untuk menaati peraturan yang ada di <#" + str(peraturanumum) +"> ya ヽ(^o^)ノ")
 
     async def on_connect(self):
@@ -81,7 +81,7 @@ class Bot(BotBase):
     
     async def on_error(self, err, *args, **kwargs):
         if err == "on_command_error":
-            await args[0].send(f"Maaf, Klee tidak dapat menerima perintah itu. Kau bisa meminta para Archon untuk melakukan hal tersebut")
+            await args[0].send(f"Error")
 
 
     async def on_command_error(self, ctx, exc):
@@ -126,7 +126,6 @@ class Bot(BotBase):
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
             
-            await self.stdout.send("Halo semua, Klee siap melayani kalian")
             await self.change_presence(activity=discord.Game(name="treasure hunt 💣"))
             self.ready = True
             print("bot ready")
