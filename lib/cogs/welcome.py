@@ -26,6 +26,7 @@ from ..db import db
 welcomePage = 750146707895091211
 rules = 691558363393294338
 general = 691557707269931088
+goodbyePage = 791574600114765824
 
 Klee = discord.File("pics/klee.png", filename="klee.png")
 PaimonCute = discord.File("pics/paimon.png", filename="paimon.png")
@@ -62,7 +63,7 @@ Semoga betah ya~~"""), color=discord.Colour.from_rgb(r=randint(0, 255), g=randin
             pass
         else:
             db.execute("DELETE FROM exp WHERE UserID = ?", member.id)
-            await self.bot.get_channel(welcomePage).send(f"Yah... {member.display_name} telah keluar. Selamat tinggal, Traveler")
+            await self.bot.get_channel(goodbyePage).send(f"Yah... {member.display_name} telah keluar. Selamat tinggal, Traveler")
 
 
 def setup(bot):
