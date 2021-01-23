@@ -19,8 +19,8 @@ from better_profanity import profanity
 
 profanity.load_censor_words_from_file("./data/profanity.txt")
 
-kataKasar = 758415783176044605
-joinLog = 750146707895091211
+kataKasar = 802457848311316490
+joinLog = 802460205895254036
 mutedRole = 763413977971032105
 unmutedRole = 691558060820529162
 general = 691557707269931088

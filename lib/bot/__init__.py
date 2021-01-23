@@ -25,9 +25,10 @@ OWNER_IDS = [326730266531856394]
 COGS = [path.split(os.sep)[-1][:-3] for path in glob("./lib/cogs/*.py")] #going to the cogs directory, and returns the name of any cog inside em
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
-dev_area = 743100499393380426
-Server = 691557706846306385
-peraturanumum = 691558363393294338
+dev_area = 781432485711446017
+Server = 780787731801833493
+peraturanumum = 780837926112067584
+general = 780787732233322506
 
 class Ready(object):
     def __init__(self):
@@ -70,7 +71,7 @@ class Bot(BotBase):
         super().run(self.TOKEN, reconnect = True)
     
     async def rules_reminder(self):
-        channel = self.get_channel(Server)
+        channel = self.get_channel(general)
         await channel.send("Jangan lupa untuk menaati peraturan yang ada di <#" + str(peraturanumum) +"> ya ヽ(^o^)ノ")
 
     async def on_connect(self):

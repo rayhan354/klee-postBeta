@@ -21,9 +21,9 @@ from discord import Embed
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 
-roleUpdate = 743105610526097479
+roleUpdate = 802456094529421363
 botInteract = 743100499393380426
-messageUpdate = 757500965749260298
+messageUpdate = 802456919293165569
 avatarUpdate = 757501447901413396
 userUpdate = 757501461830565898
 
