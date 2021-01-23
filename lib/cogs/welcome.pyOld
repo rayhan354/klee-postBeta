@@ -23,8 +23,16 @@ from random import randint
 
 from ..db import db
 
+<<<<<<< Updated upstream:lib/cogs/welcome.py
 welcomePage = 750146707895091211
 rules = 691558363393294338
+=======
+welcomePage = 802460185032523776
+rules = 780837926112067584
+general = 780787732233322506
+goodbyePage = 802460205895254036
+
+>>>>>>> Stashed changes:lib/cogs/welcome.pyOld
 Klee = discord.File("pics/klee.png", filename="klee.png")
 PaimonCute = discord.File("pics/paimon.png", filename="paimon.png")
 KleePic = discord.File("pics/Klee_Thumb.png", filename="Klee_Thumb.png")

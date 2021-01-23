@@ -21,8 +21,18 @@ from discord import Embed
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 
+<<<<<<< Updated upstream
 devArea = 743105610526097479
 botInteract = 743100499393380426
+=======
+roleUpdate = 802456094529421363
+botInteract = 781432485711446017
+messageUpdate = 802456919293165569
+avatarUpdate = 802457010707628032
+userUpdate = 802457089103757353
+
+rayhan352 = 606013036385271818
+>>>>>>> Stashed changes
 
 class Log(Cog):
 	def __init__(self, bot):
