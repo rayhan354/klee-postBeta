@@ -62,7 +62,6 @@ Alasan : {alasan}""") # untuk {ctx.author.name}!
 
 
     @command(name ="echo", aliases=["say","chat"])
-    @has_permissions(manage_guild=True)
     async def echo_message(self, ctx, *, message):
         pesan = message.capitalize()
         await ctx.message.delete()
