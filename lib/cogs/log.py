@@ -21,13 +21,12 @@ from discord import Embed
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 
-roleUpdate = 802456094529421363
-botInteract = 743100499393380426
+roleUpdate = 820630478578515988
+botInteract = 820630385389600805
 messageUpdate = 802456919293165569
-avatarUpdate = 757501447901413396
-userUpdate = 757501461830565898
+avatarUpdate = 820630452003405834
+userUpdate = 820630576901783592
 
-rayhan352 = 606013036385271818
 
 class Log(Cog):
 	def __init__(self, bot):
