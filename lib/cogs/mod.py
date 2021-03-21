@@ -19,7 +19,7 @@ from better_profanity import profanity
 
 profanity.load_censor_words_from_file("./data/profanity.txt")
 
-kataKasar = 802457848311316490
+kataKasar = 822982882838184006
 joinLog = 802460205895254036
 mutedRole = 763413977971032105
 unmutedRole = 691558060820529162
@@ -144,7 +144,7 @@ class Mod(Cog):
                     pass
                 else:
                     await message.delete()
-                    await message.channel.send(f"Traveler {message.author.mention}, kau tidak boleh berkata seperti itu!!!", delete_after = 10)
+                    await message.channel.send(f"Please don't use this word here {message.author.mention}.", delete_after = 10)
                     await self.bot.get_channel(kataKasar).send(f"""{message.author.mention} menggunakan kata terlarang dalam chatnya:
 ```
 {str(message.content)}
