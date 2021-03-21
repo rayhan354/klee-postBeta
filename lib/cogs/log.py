@@ -23,7 +23,7 @@ from discord.ext.commands import command
 
 roleUpdate = 820630478578515988
 botInteract = 820630385389600805
-messageUpdate = 802456919293165569
+messageUpdate = 820630385389600805
 avatarUpdate = 820630452003405834
 userUpdate = 820630576901783592
 
